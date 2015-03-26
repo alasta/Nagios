@@ -61,10 +61,8 @@ do
                 D)     set -x
                 ;;
                 H)      C_HOST=$OPTARG
-                        #echo $C_HOST
                 ;;
                 C)      SNMP_COMMUNITY=$OPTARG
-                        #echo $SNMP_COMMUNITY
                 ;;
                 T)      C_CHECK_TYPE=$OPTARG
                         #Gestion de la valeur de l argument, on quit si ce n est pas une valeur desiree
@@ -97,7 +95,6 @@ done
 # Default type = CPU
 case $C_CHECK_TYPE in
         CPU)
-                #echo "1 $SNMP_COMMUNITY 2 $C_HOST"
                 C_VALUE=$(snmpwalk_function ${SNMP_COMMUNITY:-"public"} ${C_HOST:-"127.0.0.1"} $OID_CPU)
         ;;
         MEM)
