@@ -53,20 +53,20 @@ do
     D)	set -x
     ;;
     u)	PROXY_USER=$OPTARG
-	CODEV=$((CODEV+1))
-	;;
+    CODEV=$((CODEV+1))
+    ;;
     p)	PROXY_PASS=$OPTARG
-	CODEV=$((CODEV+10))
-	;;
+    CODEV=$((CODEV+10))
+    ;;
     w)	C_WARN=$OPTARG
-		CODEV=$((CODEV+100))
+    CODEV=$((CODEV+100))
     ;;
     c)  C_CRITICAL=$OPTARG
-		CODEV=$((CODEV+1000))
+    CODEV=$((CODEV+1000))
+    ;;  
+    H)	C_HOST=$OPTARG
+    CODEV=$((CODEV+10000))
     ;;
-	H)	C_HOST=$OPTARG
-		CODEV=$((CODEV+10000))
-	;;
     h)  f_help
         exit 1
     ;;
@@ -87,16 +87,16 @@ done
 #Verify if all option is set
 if [ ${CODEV} -ne 11111 ]
 then
-	echo "All option is not set."
-	exit $STATE_UNKNOWN
+  echo "All option is not set."
+  exit $STATE_UNKNOWN
 fi
 
 
 #Verify if warning > critical
 if [ ${C_WARN} -le ${C_CRITICAL} ]
 then
-	echo "The warning option should be superior to critical option."
-	exit $STATE_UNKNOWN
+  echo "The warning option should be superior to critical option."
+  exit $STATE_UNKNOWN
 fi
 
 
@@ -115,12 +115,12 @@ DIFF_DATE_TS=$(((${DATE_EOV_TS}-${DATE_CURRENT_TS})/86400))
 #Manage status of Nagios
 if [  ${DIFF_DATE_TS} -lt 0   ]
   then
-	echo "UNKNOWN - Diff value = ${DIFF_DATE_TS}"
+  echo "UNKNOWN - Diff value = ${DIFF_DATE_TS}"
   exit $STATE_UNKNOWN
 elif [[  ${DIFF_DATE_TS} -le ${C_CRITICAL}  ]]
-	then
-	echo "CRITICAL - Number of days before expiration (${DIFF_DATE_TS}) is inferior to critical value : ${C_CRITICAL}"
-	exit $STATE_CRITICAL
+  then
+  echo "CRITICAL - Number of days before expiration (${DIFF_DATE_TS}) is inferior to critical value : ${C_CRITICAL}"
+  exit $STATE_CRITICAL
 elif [[  ${DIFF_DATE_TS} -le ${C_WARN}  ]]
   then
   echo "WARNING - Number of days before expiration (${DIFF_DATE_TS}) is inferior to warning value : ${C_WARN}"
