@@ -49,37 +49,37 @@ function f_help {
 # Gestion des Options
 while getopts ":hDp:u:w:c:H:" option
 do
-        case $option in
-                D)	set -x
-                ;;
-								u)	PROXY_USER=$OPTARG
-										CODEV=$((CODEV+1))
-								;;
-								p)	PROXY_PASS=$OPTARG
-										CODEV=$((CODEV+10))
-								;;
-                w)	C_WARN=$OPTARG
-										CODEV=$((CODEV+100))
-                ;;
-                c)  C_CRITICAL=$OPTARG
-										CODEV=$((CODEV+1000))
-                ;;
-								H)	C_HOST=$OPTARG
-										CODEV=$((CODEV+10000))
-								;;
-                h)      f_help
-                        exit 1
-                ;;
-                \?)     echo "*** Error ***"
-                        exit $STATE_UNKNOWN
-                ;;
-                :)      echo "*** Option \"$OPTARG\" not set ***"
-                        exit 3
-                ;;
-                *)      echo "*** Option \"$OPTARG\" unknown ***"
-                        exit 3
-                ;;
-        esac
+    case $option in
+        D)	set -x
+    ;;
+	u)	PROXY_USER=$OPTARG
+		CODEV=$((CODEV+1))
+	;;
+	p)	PROXY_PASS=$OPTARG
+		CODEV=$((CODEV+10))
+	;;
+    w)	C_WARN=$OPTARG
+		CODEV=$((CODEV+100))
+    ;;
+    c)  C_CRITICAL=$OPTARG
+		CODEV=$((CODEV+1000))
+    ;;
+	H)	C_HOST=$OPTARG
+		CODEV=$((CODEV+10000))
+	;;
+    h)  f_help
+        exit 1
+    ;;
+    \?) echo "*** Error ***"
+        exit $STATE_UNKNOWN
+    ;;
+    :)  echo "*** Option \"$OPTARG\" not set ***"
+        exit 3
+    ;;
+    *)  echo "*** Option \"$OPTARG\" unknown ***"
+        exit 3
+    ;;
+    esac
 done
 
 
@@ -87,16 +87,16 @@ done
 #Verify if all option is set
 if [ ${CODEV} -ne 11111 ]
 then
-		echo "All option is not set."
-		exit $STATE_UNKNOWN
+	echo "All option is not set."
+	exit $STATE_UNKNOWN
 fi
 
 
 #Verify if warning > critical
 if [ ${C_WARN} -le ${C_CRITICAL} ]
 then
-		echo "The warning option should be superior to critical option."
-		exit $STATE_UNKNOWN
+	echo "The warning option should be superior to critical option."
+	exit $STATE_UNKNOWN
 fi
 
 
