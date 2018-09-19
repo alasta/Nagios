@@ -49,14 +49,14 @@ function f_help {
 # Gestion des Options
 while getopts ":hDp:u:w:c:H:" option
 do
-    case $option in
-        D)	set -x
+  case $option in
+    D)	set -x
     ;;
-	u)	PROXY_USER=$OPTARG
-		CODEV=$((CODEV+1))
+    u)	PROXY_USER=$OPTARG
+	CODEV=$((CODEV+1))
 	;;
-	p)	PROXY_PASS=$OPTARG
-		CODEV=$((CODEV+10))
+    p)	PROXY_PASS=$OPTARG
+	CODEV=$((CODEV+10))
 	;;
     w)	C_WARN=$OPTARG
 		CODEV=$((CODEV+100))
